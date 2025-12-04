@@ -7,9 +7,10 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  
       - name: Verificar código
         run: echo "Código verificado correctamente"
 
@@ -30,7 +31,7 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
@@ -41,7 +42,7 @@ jobs:
           echo "Fecha del build: $(date)" > build-info.txt
           echo "Version: 1.0.0" >> build-info.txt
       - name: Subir artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: build-info.txt
