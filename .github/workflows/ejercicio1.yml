@@ -10,9 +10,7 @@ jobs:
     steps:
       - name: Saludo personalizado
         run: echo "Hola, mi nombre es Juan Morel"
-
       - name: Mostrar fecha y hora
         run: date
-
       - name: Mostrar sistema operativo
         run: echo "Sistema operativo: $RUNNER_OS"
