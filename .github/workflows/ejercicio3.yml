@@ -1,0 +1,47 @@
+name: Ejercicio 3
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      - name: Verificar código
+        run: echo "Código verificado correctamente"
+
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Ejecutar tests
+        run: npm test
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+      - name: Mensaje de build
+        run: echo "Build completado exitosamente"
+      - name: Crear archivo build-info.txt
+        run: |
+          echo "Fecha del build: $(date)" > build-info.txt
+          echo "Version: 1.0.0" >> build-info.txt
+      - name: Subir artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: build-info.txt
